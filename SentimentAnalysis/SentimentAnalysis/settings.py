@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.contenttypes.fields.GenericForeignKey',
     'chatbot',
     'api',
 
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'SentimentAnalysis.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ r'C:\Users\dell\Desktop\Venpep Internship\new-project\templates'],
+        #'DIRS': [ r'C:\Users\dell\Desktop\Venpep Internship\new-project\templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework.response import Response
 from rest_framework import status
-from psycopg2 import connection
+from psycopg2._psycopg import connection
 
 from django import generics
 from chatbot.forms import SentimentForm
