@@ -15,15 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path , include
-from chatbot.views import sentiment
-from api.views import PollList
+from django.urls import path, include
+from chatbot.views import sentiment_ananya
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', sentiment, name='App'),
-    path('api/v1/', include('api.urls')),
-    path('list', PollList.as_view()),
+    path('', sentiment_ananya, name='App'),
+    path('api/list', include('api.urls')),
+
 
 
 ]

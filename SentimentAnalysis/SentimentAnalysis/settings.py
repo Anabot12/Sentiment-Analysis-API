@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'new-project.settings')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.contenttypes.fields.GenericForeignKey',
     'chatbot',
     'api',
+
 
 ]
 
@@ -81,12 +82,13 @@ WSGI_APPLICATION = 'SentimentAnalysis.wsgi.application'
 
 DATABASES = {
    'default': {
-       'ENGINE': 'django.db.backends.postgresql',
+       'ENGINE': 'django.db.backends.postgresql_psycopg2',
        'NAME': 'ananya',
        'USER': 'ananyamathur',
        'PASSWORD': 'ananyaa12',
        'HOST': 'localhost',
        'PORT': '5432',
+    
    }
 }
 

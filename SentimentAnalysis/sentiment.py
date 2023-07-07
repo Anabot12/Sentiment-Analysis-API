@@ -1,41 +1,48 @@
-from nltk.corpus import movie_reviews
+import pandas as pd
 from nltk.classify import NaiveBayesClassifier
 from nltk.classify.util import accuracy as nltk_accuracy
+from django.http import JsonResponse
+
 
 
 def extract_features(words):
     return dict([(word, True) for word in words])
 
 
-def SentimentAnalyzer(text):
-    # load movie reviews from sample data
-    f_pos = movie_reviews.fileids('pos')
-    f_neg = movie_reviews.fileids('neg')
-    f_neu =movie_reviews.fileids('nue')
-
-    features_pos = [(extract_features(movie_reviews.words(fileids=[f])),'Positive') for f in f_pos]
-    features_neg = [(extract_features(movie_reviews.words(fileids=[f])),'Negative') for f in f_neg]
-    features_neu = [(extract_features(movie_reviews.words(fileids=[f])),'Neutral') for f in f_neu]
-
-    threshold = 0.8
-    num_pos = int(threshold*len(features_pos))
-    num_neg = int(threshold*len(features_neg))
-    num_neu = int(threshold*len(features_neu))
-
-    # creating training and testing data
-    features_train = features_pos[:num_pos] + features_neg[:num_neg] + features_neu[:num_neu]
-    features_test = features_pos[num_pos:] + features_neg[num_neg:] + features_neu[:num_neu]
 
 
-    # training a naive bayes classifier
-    classifier = NaiveBayesClassifier.train(features_train)
-    print('Accuracy:',nltk_accuracy(classifier, features_test))
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
 
-    probabilities = classifier.prob_classify(extract_features(text.split()))
-    # Pick the maximum value
-    predicted_sentiment = probabilities.max()
-    print("Predicted sentiment:", predicted_sentiment)
-    print("Probability:",round(probabilities.prob(predicted_sentiment), 2))
+def SentimentAnalyzer(comment):
+    # Initialize the sentiment analyzer
 
-    #return predicted_sentiment
-    print(predicted_sentiment)
+
+    sid = SentimentIntensityAnalyzer()
+
+    # Perform sentiment analysis on the comment
+    sentiment_scores = sid.polarity_scores(comment)
+
+    # Determine the sentiment label based on the compound score
+    compound_score = sentiment_scores['compound']
+    if compound_score >= 0.05:
+        sentiment_label = 'Positive'
+    elif compound_score <= -0.05:
+        sentiment_label = 'Negative'
+    else:
+        sentiment_label = 'Neutral'
+
+    
+
+
+    return {'sentiment_label': sentiment_label, 'sentiment_scores': sentiment_scores}
+
+
+'''
+print("Sentiment Scores:")
+print("  Positive: ", scores['pos'])
+print("  Negative: ", scores['neg'])
+print("  Neutral: ", scores['neu'])
+print("  Compound: ", scores['compound'])
+
+'''
