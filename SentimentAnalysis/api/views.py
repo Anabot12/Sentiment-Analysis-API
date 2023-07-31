@@ -1,12 +1,6 @@
-from django.shortcuts import render
 from rest_framework.response import Response
-from django.http import JsonResponse
 from rest_framework import status
-from psycopg2._psycopg import connection
-from django.db import models
 from rest_framework import generics
-from chatbot.forms import SentimentForm
-from chatbot.views import sentiment_ananya
 from sentiment import SentimentAnalyzer
 
 class ListAPI(generics.GenericAPIView):
@@ -18,9 +12,11 @@ class ListAPI(generics.GenericAPIView):
 
         sentiment = SentimentAnalyzer(comment_text)
 
+
         data = {
             'comment': comment_text,
             'sentiment': sentiment
+
         }
 
         return Response({"status": "success", "data": data}, status=status.HTTP_200_OK)

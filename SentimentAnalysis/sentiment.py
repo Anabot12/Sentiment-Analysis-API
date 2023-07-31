@@ -2,22 +2,10 @@ import pandas as pd
 from nltk.classify import NaiveBayesClassifier
 from nltk.classify.util import accuracy as nltk_accuracy
 from django.http import JsonResponse
-
-
-
-def extract_features(words):
-    return dict([(word, True) for word in words])
-
-
-
-
-import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 
 def SentimentAnalyzer(comment):
     # Initialize the sentiment analyzer
-
-
     sid = SentimentIntensityAnalyzer()
 
     # Perform sentiment analysis on the comment
@@ -32,17 +20,8 @@ def SentimentAnalyzer(comment):
     else:
         sentiment_label = 'Neutral'
 
-    
 
-
-    return {'sentiment_label': sentiment_label, 'sentiment_scores': sentiment_scores}
-
-
-'''
-print("Sentiment Scores:")
-print("  Positive: ", scores['pos'])
-print("  Negative: ", scores['neg'])
-print("  Neutral: ", scores['neu'])
-print("  Compound: ", scores['compound'])
-
-'''
+    return {
+        'sentiment_label': sentiment_label,
+        'sentiment_scores': sentiment_scores
+    }
